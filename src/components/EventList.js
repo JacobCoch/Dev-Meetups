@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import Event from "./Event";
 
-const EventList = ({ events }) => (
+const EventList = ({ events = [] }) => (
     <ul id='event-list'>
         {events
             ? events.map((event) => <Event key={event.id} event={event} />)
@@ -13,10 +13,7 @@ const EventList = ({ events }) => (
 );
 
 EventList.propTypes = {
-    events: PropTypes.arrayOf(PropTypes.number),
-};
-EventList.defaultProps = {
-    events: [],
+    events: PropTypes.array.isRequired,
 };
 
 export default EventList;
