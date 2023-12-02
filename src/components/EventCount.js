@@ -9,14 +9,14 @@ const EventCount = ({ setCurrentNOE, currentNOE, setErrorAlert }) => {
         const inputValue = event.target.value;
         setValueInput(inputValue);
 
+        let errorText;
         if (inputValue === "") {
             setCurrentNOE(32);
         } else {
             setCurrentNOE(parseFloat(inputValue));
         }
 
-        let errorText;
-        if (isNaN(inputValue) || inputValue.length <= 0) {
+        if (isNaN(inputValue)) {
             errorText = "Only positive numbers are allowed";
         } else {
             errorText = "";
