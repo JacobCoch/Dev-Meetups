@@ -1,0 +1,7 @@
+#event-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 1rem;
+    padding-top: 5rem;
+}

@@ -1,38 +1,61 @@
-import React, { useState } from "react";
+import React from "react";
 
+import "../styles/Event.css";
 import PropTypes from "prop-types";
 
-const Event = ({ event }) => {
-    const { summary, created, location, htmlLink, description } = event;
-    const [hidden, setHidden] = useState(true);
+const simplifyLocation = (location) => {
+    const locationArray = location.split(", ");
 
-    const handleOnClick = () => {
-        setHidden(!hidden);
-    };
+    if (locationArray.includes("Dubai - United Arab Emirates")) {
+        return "Dubai, United Arab Emirates";
+    }
+    const simplifiedLocation = `${locationArray[0]}, ${
+        locationArray[locationArray.length - 1]
+    }`;
+    return simplifiedLocation;
+};
+
+const Event = ({ event }) => {
+    const { summary, location, htmlLink, description, originalStartTime } =
+        event;
+
+    const date = new Date(originalStartTime.dateTime).toLocaleDateString(
+        "en-US",
+        {
+            day: "numeric",
+            month: "numeric",
+            year: "numeric",
+        }
+    );
+
+    const simplifiedLocation = simplifyLocation(location);
 
     return (
-        <div>
-            <li className='eventCard'>
-                <h3 className='eventTitle'>{summary}</h3>
-                <p>{created}</p>
-                <p>{location}</p>
-                {hidden ? null : (
-                    <div>
-                        <h4>About event:</h4>
-                        <a href={htmlLink} target='_blank' rel='noreferrer'>
-                            See details on Google Calendar
-                        </a>
-                        <p>{description}</p>
+        <div
+            className='col event-card'
+            onTouchStart={() => classList.toggle("hover")}
+        >
+            <div className='container'>
+                <div className='front'>
+                    <div className='inner'>
+                        <p>{summary}</p>
+                        <span>{date}</span>
+                        <br />
+                        <span>{simplifiedLocation}</span>
                     </div>
-                )}
-                <button
-                    onClick={handleOnClick}
-                    className='details-btn'
-                    type='button'
-                >
-                    {hidden ? "Show details" : "Hide details"}
-                </button>
-            </li>
+                </div>
+                <div className='back'>
+                    <div className='inner'>
+                        <div className='back-card'>
+                            <h2>About event:</h2>
+                            <p>{description}</p>
+                            <a href={htmlLink} target='_blank' rel='noreferrer'>
+                                See details on Google Calendar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

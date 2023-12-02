@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import PropTypes from "prop-types";
 
-const EventCount = ({ setCurrentNOE, currentNOE, setErrorAlert }) => {
+const EventCount = ({ setCurrentNOE, setErrorAlert }) => {
     const [valueInput, setValueInput] = useState(32);
 
     const handleOnChange = (event) => {
@@ -24,9 +24,6 @@ const EventCount = ({ setCurrentNOE, currentNOE, setErrorAlert }) => {
         setErrorAlert(errorText);
     };
 
-    console.log("Type of value input: ", isNaN(valueInput));
-    console.log("Value Input: ", valueInput);
-
     return (
         <div id='event-count'>
             <input value={valueInput} onChange={handleOnChange} />
@@ -36,7 +33,6 @@ const EventCount = ({ setCurrentNOE, currentNOE, setErrorAlert }) => {
 
 EventCount.propTypes = {
     setCurrentNOE: PropTypes.func.isRequired,
-    currentNOE: PropTypes.number.isRequired,
     setErrorAlert: PropTypes.func.isRequired,
 };
 

@@ -16,12 +16,28 @@ p {
     margin: 5px 0;
 }
 
-h2 {
-    color: #eab2a0;
-}
 h3,
 p {
     color: #fff;
+}
+
+.input-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    position: relative;
+}
+input[type="text"],
+input[type="number"] {
+    padding: 8px 6px 8px 10px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    line-height: 20px;
+    align-self: center;
+    height: 38px;
+    margin-bottom: 20px;
 }
 
 .display-none {
