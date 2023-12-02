@@ -2,6 +2,7 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
+import "../styles/EventList.css";
 import Event from "./Event";
 
 const EventList = ({ events = [] }) => (

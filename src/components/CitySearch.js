@@ -7,6 +7,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState([]);
+    console.log(allLocations);
 
     const handleInputChanged = (event) => {
         const { value } = event.target;
@@ -30,7 +31,6 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
         }
         setInfoAlert(infoText);
     };
-
     const handleItemClicked = (event) => {
         const value = event.target.textContent;
         setQuery(value);

@@ -38,6 +38,7 @@ const App = () => {
                 : allEvents.filter((event) => event.location === currentCity);
         setEvents(filteredEvents.slice(0, currentNOE));
         setAllLocations(extractLocations(allEvents));
+        console.log(allLocations);
     };
 
     return (
@@ -49,16 +50,17 @@ const App = () => {
                     <WarningAlert text={warningAlert} />
                 ) : null}
             </div>
-            <CitySearch
-                allLocations={allLocations}
-                setCurrentCity={setCurrentCity}
-                setInfoAlert={setInfoAlert}
-            />
-            <EventCount
-                setCurrentNOE={setCurrentNOE}
-                currentNOE={currentNOE}
-                setErrorAlert={setErrorAlert}
-            />
+            <div className='input-content'>
+                <CitySearch
+                    allLocations={allLocations}
+                    setCurrentCity={setCurrentCity}
+                    setInfoAlert={setInfoAlert}
+                />
+                <EventCount
+                    setCurrentNOE={setCurrentNOE}
+                    setErrorAlert={setErrorAlert}
+                />
+            </div>
             <EventList events={events} />
         </div>
     );
