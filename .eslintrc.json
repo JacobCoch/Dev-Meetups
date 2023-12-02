@@ -3,6 +3,7 @@
     "airbnb",
     "plugin:prettier/recommended"
   ],
+  "parser": "@babel/eslint-parser",
   "plugins": [
     "prettier",
     "import"
@@ -45,7 +46,10 @@
       }
     ],
     "prefer-regex-literals": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react/forbid-prop-types": "off",
+    "camelcase": "off",
+    "no-unused-vars": "off"
   }
   
 }
