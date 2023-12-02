@@ -1,18 +1,106 @@
-'use strict';
+import { google } from "googleapis";
 
-module.exports.hello = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
+const calendar = google.calendar("v3");
+const SCOPES = [
+    "https://www.googleapis.com/auth/calendar.events.public.readonly",
+];
+const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
+const redirectUris = ["https://jarjardinks.github.io/Dev-Meetups/"];
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    redirectUris[0]
+);
+
+export async function getAuthURL() {
+    /**
+     *
+     * Scopes array is passed to the `scope` option.
+     *
+     */
+    const authUrl = oAuth2Client.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+    });
+
+    return {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify({
+            authUrl,
+        }),
+    };
+}
+
+export async function getAccessToken(event) {
+    const code = decodeURIComponent(`${event.pathParameters.code}`);
+    return new Promise((resolve, reject) => {
+        oAuth2Client.getToken(code, (error, response) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(response);
+        });
+    })
+        .then((results) => {
+            return {
+                statusCode: 200,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": true,
+                },
+                body: JSON.stringify(results),
+            };
+        })
+        .catch((error) => {
+            return {
+                statusCode: 500,
+                body: JSON.stringify(error),
+            };
+        });
+}
+
+export async function getCalendarEvents(event) {
+    const accessToken = decodeURIComponent(
+        `${event.pathParameters.access_token}`
+    );
+    oAuth2Client.setCredentials({ access_token: accessToken });
+
+    return new Promise((resolve, reject) => {
+        calendar.events.list(
+            {
+                calendarId: CALENDAR_ID,
+                auth: oAuth2Client,
+                timeMin: new Date().toISOString(),
+                singleEvents: true,
+                orderBy: "startTime",
+            },
+            (error, response) => {
+                if (error) {
+                    return reject(error);
+                }
+                return resolve(response);
+            }
+        );
+    })
+        .then((results) => {
+            return {
+                statusCode: 200,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": true,
+                },
+                body: JSON.stringify({ events: results.data.items }),
+            };
+        })
+        .catch((error) => {
+            return {
+                statusCode: 500,
+                body: JSON.stringify(error),
+            };
+        });
+}
