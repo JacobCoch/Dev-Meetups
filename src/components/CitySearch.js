@@ -7,7 +7,6 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState([]);
-    console.log(allLocations);
 
     const handleInputChanged = (event) => {
         const { value } = event.target;
@@ -33,10 +32,22 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     };
     const handleItemClicked = (event) => {
         const value = event.target.textContent;
-        setQuery(value);
+
+        if (value === "See all cities") {
+            setQuery("");
+        } else {
+            setQuery(value);
+        }
+
         setShowSuggestions(false);
         setCurrentCity(value);
         setInfoAlert("");
+    };
+
+    const handleInputBlur = () => {
+        setTimeout(() => {
+            setShowSuggestions(false);
+        }, 100);
     };
 
     useEffect(() => {
@@ -48,9 +59,10 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
             <input
                 type='text'
                 className='city'
-                placeholder='Search for a city'
+                placeholder='Location'
                 value={query}
                 onFocus={() => setShowSuggestions(true)}
+                onBlur={handleInputBlur}
                 onChange={handleInputChanged}
             />
             {showSuggestions ? (
@@ -59,6 +71,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
                         return (
                             <li key={suggestion}>
                                 <button
+                                    className='suggestion-button'
                                     type='button'
                                     onClick={handleItemClicked}
                                     onKeyDown={handleItemClicked}
