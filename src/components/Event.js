@@ -3,22 +3,28 @@ import React from "react";
 import "../styles/Event.css";
 import PropTypes from "prop-types";
 
-const simplifyLocation = (location) => {
-    const locationArray = location.split(", ");
+const matchFirstWord = (eventLocation, allLocations) => {
+    const firstWordEventLocation = eventLocation
+        .split(",")[0]
+        .trim()
+        .toLowerCase();
 
-    if (locationArray.includes("Dubai - United Arab Emirates")) {
-        return "Dubai, United Arab Emirates";
-    }
-    const simplifiedLocation = `${locationArray[0]}, ${
-        locationArray[locationArray.length - 1]
-    }`;
-    return simplifiedLocation;
+    // Find the matching location in the allLocations array
+    const matchingLocation = allLocations.find((location) => {
+        const firstWordAllLocation = location
+            .split(",")[0]
+            .trim()
+            .toLowerCase();
+        return firstWordEventLocation === firstWordAllLocation;
+    });
+
+    return matchingLocation || eventLocation; // If no match found, use the original event location
 };
 
-const Event = ({ event }) => {
-    const { summary, location, htmlLink, description, originalStartTime } =
-        event;
+const Event = ({ event, allLocations }) => {
+    const { summary, htmlLink, description, originalStartTime } = event;
 
+    const matchedLocation = matchFirstWord(event.location, allLocations);
     const date = new Date(originalStartTime.dateTime).toLocaleDateString(
         "en-US",
         {
@@ -28,12 +34,10 @@ const Event = ({ event }) => {
         }
     );
 
-    const simplifiedLocation = simplifyLocation(location);
-
     return (
         <div
             className='col event-card'
-            onTouchStart={() => classList.toggle("hover")}
+            onTouchStart={(e) => e.currentTarget.classList.toggle("hover")}
         >
             <div className='container'>
                 <div className='front'>
@@ -41,7 +45,7 @@ const Event = ({ event }) => {
                         <p>{summary}</p>
                         <span>{date}</span>
                         <br />
-                        <span>{simplifiedLocation}</span>
+                        <span>{matchedLocation}</span>
                     </div>
                 </div>
                 <div className='back'>
@@ -62,6 +66,7 @@ const Event = ({ event }) => {
 
 Event.propTypes = {
     event: PropTypes.object.isRequired,
+    allLocations: PropTypes.array.isRequired,
 };
 
 export default Event;

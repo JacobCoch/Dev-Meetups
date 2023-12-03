@@ -1,7 +1,6 @@
 body {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-    background: linear-gradient(to bottom right, #2d4356, #737d86);
 }
 
 .App * {
@@ -21,12 +20,16 @@ p {
     color: #fff;
 }
 
-.input-content {
+.input-components {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 16px;
+    align-items: center;
 }
+
 input[type="text"],
 input[type="number"] {
     padding: 8px 6px 8px 10px;

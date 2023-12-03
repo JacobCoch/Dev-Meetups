@@ -7,6 +7,18 @@ import CitySearch from "./components/CitySearch";
 import EventCount from "./components/EventCount";
 import EventList from "./components/EventList";
 
+const simplifyLocation = (location) => {
+    const locationArray = location.split(", ");
+
+    if (locationArray.includes("Dubai - United Arab Emirates")) {
+        return "Dubai, United Arab Emirates";
+    }
+    const simplifiedLocation = `${locationArray[0]}, ${
+        locationArray[locationArray.length - 1]
+    }`;
+    return simplifiedLocation;
+};
+
 const App = () => {
     const [events, setEvents] = useState([]);
     const [currentNOE, setCurrentNOE] = useState(32);
@@ -32,13 +44,18 @@ const App = () => {
 
     const fetchData = async () => {
         const allEvents = await getEvents();
+        const simplifiedLocations =
+            extractLocations(allEvents).map(simplifyLocation);
+        setAllLocations(simplifiedLocations);
+
         const filteredEvents =
             currentCity === "See all cities"
                 ? allEvents
-                : allEvents.filter((event) => event.location === currentCity);
+                : allEvents.filter(
+                      (event) =>
+                          simplifyLocation(event.location) === currentCity
+                  );
         setEvents(filteredEvents.slice(0, currentNOE));
-        setAllLocations(extractLocations(allEvents));
-        console.log(allLocations);
     };
 
     return (
@@ -50,7 +67,7 @@ const App = () => {
                     <WarningAlert text={warningAlert} />
                 ) : null}
             </div>
-            <div className='input-content'>
+            <div className='input-components'>
                 <CitySearch
                     allLocations={allLocations}
                     setCurrentCity={setCurrentCity}
@@ -61,7 +78,7 @@ const App = () => {
                     setErrorAlert={setErrorAlert}
                 />
             </div>
-            <EventList events={events} />
+            <EventList events={events} allLocations={allLocations} />
         </div>
     );
 };

@@ -26,7 +26,7 @@ const EventCount = ({ setCurrentNOE, setErrorAlert }) => {
 
     return (
         <div id='event-count'>
-            <input value={valueInput} onChange={handleOnChange} />
+            <input value={valueInput} onChange={handleOnChange} type='number' />
         </div>
     );
 };
