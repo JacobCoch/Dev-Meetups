@@ -61,10 +61,7 @@
 }
 
 .back {
-    background: #a4aeb5;
-    background: -webkit-linear-gradient(45deg, #a4aeb5 0%, #596a72 100%);
-    background: -o-linear-gradient(45deg, #a4aeb5 0%, #596a72 100%);
-    background: linear-gradient(45deg, #a4aeb5 0%, #596a72 100%);
+    background-image: url("../card-image.jpg");
 }
 
 .front:after {
@@ -104,8 +101,12 @@
     flex-direction: column;
 }
 .back-card h2 {
-    color: #fff;
+    color: #000000;
     padding-bottom: 2rem;
+}
+.back-card p {
+    color: #000000;
+    font-size: large;
 }
 .back-card a {
     font-size: 15px;
