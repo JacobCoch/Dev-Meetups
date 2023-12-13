@@ -4,6 +4,7 @@ import "./styles/App.css";
 import { getEvents, extractLocations } from "./api";
 import { InfoAlert, ErrorAlert, WarningAlert } from "./components/Alert";
 import CityEventsChart from "./components/CityEventsChart";
+import CityPieChart from "./components/CityPieChart";
 import CitySearch from "./components/CitySearch";
 import EventCount from "./components/EventCount";
 import EventList from "./components/EventList";
@@ -56,11 +57,13 @@ const App = () => {
                       (event) =>
                           simplifyLocation(event.location) === currentCity
                   );
+
         setEvents(filteredEvents.slice(0, currentNOE));
     };
 
     return (
         <div className='App'>
+            <h1 className='dev-meetups-title'>Dev Meetups</h1>
             <div className='alerts-container'>
                 {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
                 {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
@@ -79,7 +82,11 @@ const App = () => {
                     setErrorAlert={setErrorAlert}
                 />
             </div>
-            <CityEventsChart allLocations={allLocations} events={events} />
+            <div className='data-charts'>
+                <CityPieChart events={events} />
+                <CityEventsChart allLocations={allLocations} events={events} />
+            </div>
+
             <EventList events={events} allLocations={allLocations} />
         </div>
     );

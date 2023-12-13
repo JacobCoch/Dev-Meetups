@@ -13,44 +13,44 @@ import {
 } from "recharts";
 
 const CityEventsChart = ({ allLocations, events }) => {
-    useEffect(() => {
-        function getData() {
-            const data = allLocations.map((location) => {
-                const count = events.filter(
-                    (event) => event.location === location
-                ).length;
-                const city = location.split(", ")[0].substring(0, 15);
-                return { city, count };
-            });
-            return data;
-        }
-        console.log("data", data);
-        console.log("All locations", allLocations, "Events", events);
-
-        setData(() => getData(events, allLocations));
-    }, [events, allLocations]);
-
     const [data, setData] = useState([]);
 
+    useEffect(() => {
+        setData(() => getData());
+    }, [events, allLocations]);
+
+    const getData = () => {
+        const fetchData = allLocations.map((location) => {
+            const count = events.filter((event) =>
+                event.location.startsWith(location.split(",")[0])
+            ).length;
+            const city = location.split(", ")[0].substring(0, 15);
+            return { city, count };
+        });
+        return fetchData;
+    };
+
     return (
-        <ResponsiveContainer height={400}>
-            <ScatterChart
-                margin={{
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 20,
-                }}
-            >
+        <ResponsiveContainer height={400} width='80%'>
+            <ScatterChart>
                 <CartesianGrid />
                 <XAxis
                     type='category'
                     dataKey='city'
                     name='city'
                     stroke='black'
-                    angle={60}
                     interval={0}
-                    tick={{ dx: 20, dy: 40, fontSize: 14 }}
+                    angle={50}
+                    tick={{ fontSize: 16, fill: "black", dy: 30 }}
+                    label={{
+                        value: "Cities",
+                        position: "insideBottom",
+                        dy: 5,
+                        fontSize: 20,
+                        fill: "black",
+                        fontWeight: "bold",
+                    }}
+                    height={100}
                 />
                 <YAxis
                     type='number'
@@ -61,7 +61,6 @@ const CityEventsChart = ({ allLocations, events }) => {
                 />
                 <Tooltip
                     cursor={{ strokeDasharray: "3 3" }}
-                    wrapperStyle={{ color: "white", background: "#333" }}
                     labelStyle={{ color: "white" }}
                     contentStyle={{ backgroundColor: "#333", border: "none" }}
                     itemStyle={{ color: "white", textTransform: "capitalize" }}

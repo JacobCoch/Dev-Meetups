@@ -20,12 +20,20 @@ p {
     color: #fff;
 }
 
+.dev-meetups-title {
+    color: darkblue;
+    font-family: "Kalnia", serif;
+    font-size: 3rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
 .input-components {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 0;
-    right: 0;
+    right: 50%;
+    left: 50%;
     margin: 16px;
     align-items: center;
 }
@@ -65,6 +73,19 @@ input[type="number"] {
 .link:hover {
     color: rgb(255, 255, 255);
     text-decoration: none;
+}
+
+.data-charts {
+    display: flex;
+    flex-direction: row;
+    margin-top: 13rem;
+    margin-right: 3rem;
+    margin-left: 3rem;
+}
+@media screen and (max-width: 1035px) {
+    .data-charts {
+        flex-direction: column;
+    }
 }
 /*---------------------------------------------------------GoogleLogin---------------------------------------------------------*/
 .button-wrapper {
