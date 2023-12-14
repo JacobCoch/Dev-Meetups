@@ -8,6 +8,7 @@ import CityPieChart from "./components/CityPieChart";
 import CitySearch from "./components/CitySearch";
 import EventCount from "./components/EventCount";
 import EventList from "./components/EventList";
+import Github from "./components/Github";
 
 const simplifyLocation = (location) => {
     const locationArray = location.split(", ");
@@ -63,6 +64,7 @@ const App = () => {
 
     return (
         <div className='App'>
+            <Github />
             <h1 className='dev-meetups-title'>Dev Meetups</h1>
             <div className='alerts-container'>
                 {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
