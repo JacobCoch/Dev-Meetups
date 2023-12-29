@@ -4,13 +4,13 @@ const calendar = google.calendar("v3");
 const SCOPES = [
     "https://www.googleapis.com/auth/calendar.events.public.readonly",
 ];
-const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
-const redirectUris = ["https://jacobcoch.github.io/Dev-Meetups/"];
+const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID, REDIRECT_URL } = process.env;
+
 
 const oAuth2Client = new google.auth.OAuth2(
     CLIENT_ID,
     CLIENT_SECRET,
-    redirectUris[0]
+    REDIRECT_URL
 );
 
 export async function getAuthURL() {
