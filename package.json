@@ -1,6 +1,6 @@
 {
   "name": "dev-meetups",
-  "homepage": ".",
+  "homepage": "https://jacobcoch.github.io/Dev-Meetups/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
