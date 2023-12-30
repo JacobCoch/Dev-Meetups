@@ -34,7 +34,7 @@ const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
     const response = await fetch(
         `https://mhwvof6pp4.execute-api.us-west-1.amazonaws.com/dev/api/token/` +
-            `/${encodeCode}`
+            `${encodeCode}`
     );
     const { access_token } = await response.json();
     if (access_token) {
@@ -72,8 +72,8 @@ export const getEvents = async () => {
 
         // getEvents Lambda function api endpoint with added token
         const url =
-            `https://mhwvof6pp4.execute-api.us-west-1.amazonaws.com/dev/api/get-events` +
-            `/${token}`;
+            `https://mhwvof6pp4.execute-api.us-west-1.amazonaws.com/dev/api/get-events/` +
+            `${token}`;
 
         // Response should be the result of Lambda getCalendarEvents function
         const response = await fetch(url);
