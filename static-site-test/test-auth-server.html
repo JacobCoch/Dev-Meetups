@@ -88,11 +88,14 @@
                     code = encodeURIComponent(codeValue.value);
                 }
                 const getTokenRequest = getToken + "/" + code;
+                console.log("getTokenRequest:" + getTokenRequest);
                 fetch(getTokenRequest)
                     .then(function (response) {
+                        console.log("response:" + response);
                         return response.json();
                     })
                     .then(function (json) {
+                        console.log("json:" + json);
                         accessTokenElement.innerText = JSON.stringify(json);
                     });
             };
