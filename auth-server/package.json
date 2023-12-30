@@ -10,10 +10,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "googleapis": "^110.0.0"
-  },
   "devDependencies": {
     "eslint-plugin-import": "^2.29.0"
+  },
+  "dependencies": {
+    "googleapis": "^129.0.0"
   }
 }
