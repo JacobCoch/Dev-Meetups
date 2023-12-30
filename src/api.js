@@ -32,16 +32,31 @@ const removeQuery = () => {
 
 const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
-    const response = await fetch(
-        `https://mhwvof6pp4.execute-api.us-west-1.amazonaws.com/dev/api/token/` +
-            `${encodeCode}`
-    );
-    const { access_token } = await response.json();
-    if (access_token) {
-        localStorage.setItem("access_token", access_token);
-    }
 
-    return access_token;
+    console.log("Fetching token for code:", code); // Add this line
+
+    try {
+        const response = await fetch(
+            `https://mhwvof6pp4.execute-api.us-west-1.amazonaws.com/dev/api/token/` +
+                `${encodeCode}`
+        );
+
+        if (!response.ok) {
+            console.error("Error fetching token:", response.statusText); // Add this line
+            throw new Error(`Failed to fetch token: ${response.statusText}`);
+        }
+
+        const { access_token } = await response.json();
+        if (access_token) {
+            console.log("Token fetched successfully:", access_token); // Add this line
+            localStorage.setItem("access_token", access_token);
+        }
+
+        return access_token;
+    } catch (error) {
+        console.error("Error in getToken:", error); // Add this line
+        throw error;
+    }
 };
 
 export const getEvents = async () => {
