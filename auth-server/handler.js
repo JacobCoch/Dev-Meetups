@@ -28,7 +28,7 @@ export async function getAuthURL() {
     return {
         statusCode: 200,
         headers: {
-            "Access-Control-Allow-Origin": "https://jacobcoch.github.io",
+            "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
         },
         body: JSON.stringify({
@@ -51,7 +51,7 @@ export async function getAccessToken(event) {
             return {
                 statusCode: 200,
                 headers: {
-                    "Access-Control-Allow-Origin": "https://jacobcoch.github.io",
+                    "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Credentials": true,
                 },
                 body: JSON.stringify(results),
@@ -92,7 +92,7 @@ export async function getCalendarEvents(event) {
             return {
                 statusCode: 200,
                 headers: {
-                    "Access-Control-Allow-Origin": "https://jacobcoch.github.io",
+                    "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Credentials": true,
                 },
                 body: JSON.stringify({ events: results.data.items }),
