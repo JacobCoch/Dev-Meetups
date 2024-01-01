@@ -4,13 +4,14 @@ const calendar = google.calendar("v3");
 const SCOPES = [
     "https://www.googleapis.com/auth/calendar.events.public.readonly",
 ];
-const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID, REDIRECT_URL } = process.env;
+const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
 
+const redirect_uri = "https://jacobcoch.github.io/Dev-Meetups/";
 
 const oAuth2Client = new google.auth.OAuth2(
     CLIENT_ID,
     CLIENT_SECRET,
-    REDIRECT_URL
+    redirect_uri
 );
 
 export async function getAuthURL() {
@@ -22,7 +23,6 @@ export async function getAuthURL() {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: "offline",
         scope: SCOPES,
-        redirect_uri: "https://jacobcoch.github.io/Dev-Meetups/", 
     });
 
     return {
@@ -39,6 +39,7 @@ export async function getAuthURL() {
 
 export async function getAccessToken(event) {
     const code = decodeURIComponent(`${event.pathParameters.code}`);
+
     return new Promise((resolve, reject) => {
         oAuth2Client.getToken(code, (error, response) => {
             if (error) {
@@ -66,10 +67,10 @@ export async function getAccessToken(event) {
 }
 
 export async function getCalendarEvents(event) {
-    const accessToken = decodeURIComponent(
+    const access_token = decodeURIComponent(
         `${event.pathParameters.access_token}`
     );
-    oAuth2Client.setCredentials({ access_token: accessToken });
+    oAuth2Client.setCredentials({ access_token });
 
     return new Promise((resolve, reject) => {
         calendar.events.list(

@@ -32,15 +32,17 @@ const removeQuery = () => {
 
 const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
+    console.log("encodeCode:", encodeCode);
     const response = await fetch(
         `https://mhwvof6pp4.execute-api.us-west-1.amazonaws.com/dev/api/token/` +
             `${encodeCode}`
     );
+    console.log("response:", response);
     const { access_token } = await response.json();
     if (access_token) {
         localStorage.setItem("access_token", access_token);
     }
-
+    console.log("access_token:", access_token);
     return access_token;
 };
 
@@ -91,8 +93,9 @@ export const getEvents = async () => {
 
 export const getAccessToken = async () => {
     const accessToken = localStorage.getItem("access_token");
+    console.log("Access token:", accessToken);
     const tokenCheck = accessToken && (await checkToken(accessToken));
-
+    console.log("Token check:", tokenCheck);
     if (!accessToken || tokenCheck.error) {
         localStorage.removeItem("access_token");
         const searchParams = new URLSearchParams(window.location.search);
