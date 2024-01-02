@@ -17,10 +17,11 @@ meet-app is a test driven development web app that helps users research, schedul
 
 ## App Photo
 
-![dashboard](![homepage](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/2a967583-59c0-459d-8c4d-d4c4a8a81d2c)
-)
+![homepage](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/2a967583-59c0-459d-8c4d-d4c4a8a81d2c)
 
-![screen-capture](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/06b7cd17-8d9a-4f51-8002-c901f27553b3)
+
+![Card Animation](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/7c8cdeec-c727-4bf7-9939-cdfc816b8fbe)
+
 
 
 
