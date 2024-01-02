@@ -20,7 +20,8 @@ meet-app is a test driven development web app that helps users research, schedul
 ![dashboard](![homepage](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/2a967583-59c0-459d-8c4d-d4c4a8a81d2c)
 )
 
-[screen-capture.webm](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/72cff87d-db6f-4dd9-a9a0-c08f1216acd1)
+![screen-capture](https://github.com/JacobCoch/Dev-Meetups/assets/104926747/06b7cd17-8d9a-4f51-8002-c901f27553b3)
+
 
 
 ## Serverless Functions
